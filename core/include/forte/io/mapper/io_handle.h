@@ -1,5 +1,6 @@
 /*******************************************************************************
- * Copyright (c) 2016 - 2018 Johannes Messmer (admin@jomess.com), fortiss GmbH
+ * Copyright (c) 2016 - 2026 Johannes Messmer (admin@jomess.com), fortiss GmbH,
+ *                           Thomas Oellinger
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -9,6 +10,7 @@
  * Contributors:
  *   Johannes Messmer - initial API and implementation and/or initial documentation
  *   Jose Cabral - Cleaning of namespaces
+ *   Thomas Oellinger - Add support for multiple observers per input.
  *******************************************************************************/
 
 #ifndef SRC_CORE_IO_MAPPER_HANDLE_H_
@@ -37,6 +39,12 @@ namespace forte::io {
       IOObserver *getObserver() {
         return mObserver;
       }
+
+      //+++ self-defined members +++
+      std::vector<IOObserver*>& getObservers() {
+        return mObservers;
+      }
+      //--- self-defined members ---
 
       CIEC_ANY::EDataTypeID getIOHandleDataType() const {
         return mType;
@@ -67,9 +75,15 @@ namespace forte::io {
 
       virtual void onObserver(IOObserver *paObserver);
       virtual void dropObserver();
+      //+++ self-defined members +++
+      virtual void dropObserver(IOObserver* paObserver);
+      //--- self-defined members ---
 
     private:
-      IOObserver *mObserver;
+      //+++ self-defined members +++
+      std::vector<IOObserver*>mObservers; // We now support multiple observers on inputs.
+      //--- self-defined members ---
+      IOObserver *mObserver;  // The first or only observer for faster checking.
   };
 
 } // namespace forte::io
