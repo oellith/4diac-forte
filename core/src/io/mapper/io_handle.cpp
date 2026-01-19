@@ -31,7 +31,6 @@ namespace forte::io {
   }
 
   void IOHandle::onObserver(IOObserver *paObserver) {
-    //+++ self-defined members +++
     if (IOMapper::In == mDirection) {
       if (paObserver) {
         this->mObservers.push_back(paObserver);
@@ -41,14 +40,12 @@ namespace forte::io {
     else {
       this->mObserver = paObserver;
     }
-    //--- self-defined members ---
   }
 
   void IOHandle::dropObserver() {
     this->mObserver = nullptr;
   }
 
-  //+++ self-defined members +++
   void IOHandle::dropObserver(IOObserver* paObserver) {
     if (paObserver) {
       auto iter = std::find(this->mObservers.begin(), this->mObservers.end(), paObserver);
@@ -67,10 +64,8 @@ namespace forte::io {
       this->mObservers.clear();
     }
   }
-  //--- self-defined members ---
 
   void IOHandle::onChange() {
-    //+++ self-defined members +++
     if (mObserver != nullptr) {
       if (mObservers.empty()) { // Single observer for outputs:
         if (mObserver->onChange()) {
@@ -86,6 +81,5 @@ namespace forte::io {
         }
       }
     }
-    //--- self-defined members ---    
   }
 } // namespace forte::io

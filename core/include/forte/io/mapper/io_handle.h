@@ -40,11 +40,9 @@ namespace forte::io {
         return mObserver;
       }
 
-      //+++ self-defined members +++
       std::vector<IOObserver*>& getObservers() {
         return mObservers;
       }
-      //--- self-defined members ---
 
       CIEC_ANY::EDataTypeID getIOHandleDataType() const {
         return mType;
@@ -75,14 +73,10 @@ namespace forte::io {
 
       virtual void onObserver(IOObserver *paObserver);
       virtual void dropObserver();
-      //+++ self-defined members +++
       virtual void dropObserver(IOObserver* paObserver);
-      //--- self-defined members ---
 
     private:
-      //+++ self-defined members +++
       std::vector<IOObserver*>mObservers; // We now support multiple observers on inputs.
-      //--- self-defined members ---
       IOObserver *mObserver;  // The first or only observer for faster checking.
   };
 
